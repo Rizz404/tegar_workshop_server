@@ -37,6 +37,7 @@ model UserProfile {
   address     String?  @db.Text
   latitude    Decimal? @db.Decimal(12, 8)
   longitude   Decimal? @db.Decimal(11, 8)
+  fcmToken    String?  @map("fcm_token") @db.Text
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 

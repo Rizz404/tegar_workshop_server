@@ -2,21 +2,25 @@
   "jsc": {
     "parser": {
       "syntax": "typescript",
+      "tsx": false,
       "decorators": true,
       "dynamicImport": true
     },
     "target": "es2020",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "baseUrl": "./src"
+    "loose": false,
+    "externalHelpers": true,
+    "keepClassNames": false,
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": true
+    }
   },
   "module": {
     "type": "commonjs",
     "strict": true,
-    "strictMode": true,
-    "lazy": false,
     "noInterop": false
   },
-  "sourceMaps": true
+  "sourceMaps": true,
+  "exclude": ["node_modules", "dist", ".git"],
+  "minify": true
 }

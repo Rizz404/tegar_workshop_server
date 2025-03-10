@@ -1,3 +1,4 @@
+import "./path-resolver";
 import bodyParser from "body-parser";
 import compression from "compression";
 import cookieParser from "cookie-parser";
