@@ -53,3 +53,6 @@ out/
 
 # Ignore winston logs (if using winston-daily-rotate-file)
 logs/**/*.log
+
+# Local Netlify folder
+.netlify

@@ -24,7 +24,7 @@ async function main() {
     await seedMotorcycleServices(prisma, undefined, false);
     await seedMotorcycleModelYears(prisma, undefined, false);
     await seedUserMotorcycles(prisma, undefined, false);
-    await seedPaymentMethods(prisma, false);
+    // await seedPaymentMethods(prisma, false);
     // await seedTransactions(prisma, undefined, false);
     // await seedOrders(prisma, undefined, false);
     // await seedETickets(prisma, undefined, false);
