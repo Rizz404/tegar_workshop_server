@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Prisma, PrismaClient } from "@prisma/client";
 
-const generateCarServicePrice = (): Prisma.Decimal => {
+const generateMotorcycleServicePrice = (): Prisma.Decimal => {
   const priceRanges = [
     { min: 50_000, max: 500_000 },
     { min: 500_000, max: 2_000_000 },
@@ -21,27 +21,28 @@ const generateCarServicePrice = (): Prisma.Decimal => {
   return new Prisma.Decimal(roundedPrice);
 };
 
-const generateCarService = (): Prisma.CarServiceCreateManyInput => ({
-  name: faker.word.noun().slice(0, 50),
-  price: generateCarServicePrice(),
-});
+const generateMotorcycleService =
+  (): Prisma.MotorcycleServiceCreateManyInput => ({
+    name: faker.word.noun().slice(0, 50),
+    price: generateMotorcycleServicePrice(),
+  });
 
-export const seedCarServices = async (
+export const seedMotorcycleServices = async (
   prisma: PrismaClient,
   count = 25,
   deleteFirst = true
 ) => {
-  console.log("🌱 Seeding CarServices...");
+  console.log("🌱 Seeding MotorcycleServices...");
 
   if (deleteFirst) {
-    await prisma.carService.deleteMany();
+    await prisma.motorcycleService.deleteMany();
   }
 
-  const data = Array.from({ length: count }, () => generateCarService());
+  const data = Array.from({ length: count }, () => generateMotorcycleService());
 
-  const result = await prisma.carService.createMany({
+  const result = await prisma.motorcycleService.createMany({
     data,
     skipDuplicates: true,
   });
-  console.log(`✅ Seeded ${result.count} CarServices`);
+  console.log(`✅ Seeded ${result.count} MotorcycleServices`);
 };

@@ -368,7 +368,7 @@ export const deleteAllPaymentMethod: RequestHandler = async (req, res) => {
     return createSuccessResponse(
       res,
       deletedAllPaymentMethods,
-      "All car brands deleted"
+      "All motorcycle brands deleted"
     );
   } catch (error) {
     return createErrorResponse(res, error, 500);

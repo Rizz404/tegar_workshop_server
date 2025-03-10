@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --reset --config nodemon.json",
+    "dev:debug": "nodemon --inspect=0.0.0.0:9229 --exec ts-node -r tsconfig-paths/register src/index.ts",
     "build": "prisma generate && webpack --config webpack.config.js",
     "start": "node dist/bundle.js",
     "build:test": "npm ci && npm run build && npm start",

@@ -1,17 +1,17 @@
 import { z } from "zod";
 
-export const carServiceSchema = z.object({
-  carServiceId: z.string().min(1, "Car service ID is required"),
+export const motorcycleServiceSchema = z.object({
+  motorcycleServiceId: z.string().min(1, "Motorcycle service ID is required"),
 });
 
 export const createOrderSchema = z.object({
   body: z
     .object({
-      userCarId: z.string().min(1, "User car ID is required"),
+      userMotorcycleId: z.string().min(1, "User motorcycle ID is required"),
       workshopId: z.string().min(1, "Workshop ID is required"),
       note: z.string().max(1000, "Max 1000 characters").optional(),
-      carServices: z
-        .array(carServiceSchema)
+      motorcycleServices: z
+        .array(motorcycleServiceSchema)
         .min(1, "Minimal 1 layanan harus dipilih"),
     })
     .strict(),

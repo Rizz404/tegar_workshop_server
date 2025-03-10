@@ -58,9 +58,9 @@ export const createOrder: RequestHandler = async (req, res) => {
   try {
     const { id: userId } = req.user!;
     const {
-      carServices,
+      motorcycleServices,
       paymentMethodId,
-      userCarId,
+      userMotorcycleId,
       workshopId,
       note,
     }: CreateOrderDTO & { paymentMethodId: string } = req.body;
@@ -78,10 +78,10 @@ export const createOrder: RequestHandler = async (req, res) => {
       return createErrorResponse(res, "Phone number is required", 400);
     }
 
-    const carServicesData = await prisma.carService.findMany({
+    const motorcycleServicesData = await prisma.motorcycleService.findMany({
       where: {
         id: {
-          in: carServices.map((service) => service.carServiceId),
+          in: motorcycleServices.map((service) => service.motorcycleServiceId),
         },
       },
       select: {
@@ -91,21 +91,23 @@ export const createOrder: RequestHandler = async (req, res) => {
       },
     });
 
-    if (carServicesData.length !== carServices.length) {
-      const missingIds = carServices
+    if (motorcycleServicesData.length !== motorcycleServices.length) {
+      const missingIds = motorcycleServices
         .filter(
           (service) =>
-            !carServicesData.some((cs) => cs.id === service.carServiceId)
+            !motorcycleServicesData.some(
+              (cs) => cs.id === service.motorcycleServiceId
+            )
         )
-        .map((service) => service.carServiceId);
+        .map((service) => service.motorcycleServiceId);
       return createErrorResponse(
         res,
-        `Missing car services: ${missingIds.join(", ")}`,
+        `Missing motorcycle services: ${missingIds.join(", ")}`,
         404
       );
     }
 
-    const orderTotalPrice = carServicesData.reduce(
+    const orderTotalPrice = motorcycleServicesData.reduce(
       (sum, service) => sum.add(service.price),
       new Prisma.Decimal(0)
     );
@@ -138,12 +140,12 @@ export const createOrder: RequestHandler = async (req, res) => {
           order: {
             create: {
               userId: user.id,
-              userCarId,
+              userMotorcycleId,
               workshopId,
               note: note,
               subtotalPrice: orderTotalPrice,
-              carServices: {
-                connect: carServicesData.map(({ id }) => ({ id })),
+              motorcycleServices: {
+                connect: motorcycleServicesData.map(({ id }) => ({ id })),
               },
             },
           },
@@ -160,12 +162,12 @@ export const createOrder: RequestHandler = async (req, res) => {
           invoiceDuration: "172800", // * 48 jam
           reminderTime: 1,
           paymentMethods: [paymentMethod.name],
-          items: carServicesData.map((carserviceData) => ({
-            name: carserviceData.name,
-            price: Number(carserviceData.price),
+          items: motorcycleServicesData.map((motorcycleserviceData) => ({
+            name: motorcycleserviceData.name,
+            price: Number(motorcycleserviceData.price),
             quantity: 1,
-            category: "car service",
-            referenceId: carserviceData.id,
+            category: "motorcycle service",
+            referenceId: motorcycleserviceData.id,
           })),
           successRedirectUrl:
             "https://familiar-tomasina-happiness-overload-148b3187.koyeb.app",
@@ -210,9 +212,9 @@ export const createOrderWithPaymentRequest: RequestHandler = async (
   try {
     const { id: userId } = req.user!;
     const {
-      carServices,
+      motorcycleServices,
       paymentMethodId,
-      userCarId,
+      userMotorcycleId,
       workshopId,
       note,
     }: CreateOrderDTO & { paymentMethodId: string } = req.body;
@@ -230,10 +232,10 @@ export const createOrderWithPaymentRequest: RequestHandler = async (
       return createErrorResponse(res, "Phone number is required", 400);
     }
 
-    const carServicesData = await prisma.carService.findMany({
+    const motorcycleServicesData = await prisma.motorcycleService.findMany({
       where: {
         id: {
-          in: carServices.map((service) => service.carServiceId),
+          in: motorcycleServices.map((service) => service.motorcycleServiceId),
         },
       },
       select: {
@@ -243,21 +245,23 @@ export const createOrderWithPaymentRequest: RequestHandler = async (
       },
     });
 
-    if (carServicesData.length !== carServices.length) {
-      const missingIds = carServices
+    if (motorcycleServicesData.length !== motorcycleServices.length) {
+      const missingIds = motorcycleServices
         .filter(
           (service) =>
-            !carServicesData.some((cs) => cs.id === service.carServiceId)
+            !motorcycleServicesData.some(
+              (cs) => cs.id === service.motorcycleServiceId
+            )
         )
-        .map((service) => service.carServiceId);
+        .map((service) => service.motorcycleServiceId);
       return createErrorResponse(
         res,
-        `Missing car services: ${missingIds.join(", ")}`,
+        `Missing motorcycle services: ${missingIds.join(", ")}`,
         404
       );
     }
 
-    const orderTotalPrice = carServicesData.reduce(
+    const orderTotalPrice = motorcycleServicesData.reduce(
       (sum, service) => sum.add(service.price),
       new Prisma.Decimal(0)
     );
@@ -295,12 +299,12 @@ export const createOrderWithPaymentRequest: RequestHandler = async (
           order: {
             create: {
               userId: user.id,
-              userCarId,
+              userMotorcycleId,
               workshopId,
               note: note,
               subtotalPrice: orderTotalPrice,
-              carServices: {
-                connect: carServicesData.map(({ id }) => ({ id })),
+              motorcycleServices: {
+                connect: motorcycleServicesData.map(({ id }) => ({ id })),
               },
             },
           },
@@ -314,7 +318,7 @@ export const createOrderWithPaymentRequest: RequestHandler = async (
           amount: Number(transactionTotalPrice),
           currency: "IDR",
           description: note,
-          items: carServicesData.map((service) => ({
+          items: motorcycleServicesData.map((service) => ({
             name: service.name,
             price: Number(service.price),
             currency: "IDR",
@@ -897,7 +901,7 @@ export const deleteAllOrder: RequestHandler = async (req, res) => {
     return createSuccessResponse(
       res,
       deletedAllOrders,
-      "All car models deleted"
+      "All motorcycle models deleted"
     );
   } catch (error) {
     return createErrorResponse(res, error, 500);

@@ -19,5 +19,5 @@ export const updateColorSchema = z.object({
 export const createManyColorSchema = z.object({
   body: z
     .array(createColorSchema.shape.body)
-    .min(1, "At least one car service is required"),
+    .min(1, "At least one motorcycle service is required"),
 });

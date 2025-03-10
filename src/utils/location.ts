@@ -57,7 +57,7 @@ export async function findClosestWorkshop(userLocation: LocationCoordinates) {
 
     return closestWorkshop[0] || null;
   } catch (error) {
-    console.error("Gagal mencari workshop terdekat:", error);
+    console.error("Gagal menmotorcyclei workshop terdekat:", error);
     return null;
   }
 }

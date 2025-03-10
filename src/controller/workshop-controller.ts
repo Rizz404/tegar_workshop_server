@@ -29,7 +29,7 @@ export const createManyWorkshops: RequestHandler = async (req, res) => {
     return createSuccessResponse(
       res,
       createdWorkshops,
-      "Car brands Created",
+      "Motorcycle brands Created",
       201
     );
   } catch (error) {

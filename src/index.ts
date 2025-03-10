@@ -90,7 +90,7 @@ app.use("/api/v1", (req, res, next) => {
       }
       res.setHeader("Content-Type", "text/plain");
       res.send(
-        `${data}\n\n📌 Available routes:\n/auth\n/users\n/car-brands\n/car-models\n/car-services\n/colors\n/car-model-years\n/car-model-year-colors\n/user-cars\n/workshops\n/payment-methods\n/orders\n/transactions\n/histories\n/e-tickets`
+        `${data}\n\n📌 Available routes:\n/auth\n/users\n/motorcycle-brands\n/motorcycle-models\n/motorcycle-services\n/colors\n/motorcycle-model-years\n/motorcycle-model-year-colors\n/user-motorcycles\n/workshops\n/payment-methods\n/orders\n/transactions\n/histories\n/e-tickets`
       );
     });
   } else {

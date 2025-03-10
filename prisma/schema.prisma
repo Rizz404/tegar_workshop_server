@@ -18,13 +18,13 @@ model User {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
-  userProfile   UserProfile?
-  userCars      UserCar[]
-  orders        Order[]
-  transactions  Transaction[]
-  eTickets      ETicket[]
-  cancellations Cancellation[]
-  refunds       Refund[]
+  userProfile     UserProfile?
+  userMotorcycles UserMotorcycle[]
+  orders          Order[]
+  transactions    Transaction[]
+  eTickets        ETicket[]
+  cancellations   Cancellation[]
+  refunds         Refund[]
 
   @@map("users")
 }
@@ -45,7 +45,7 @@ model UserProfile {
   @@map("user_profiles")
 }
 
-model CarBrand {
+model MotorcycleBrand {
   id        String   @id @default(cuid()) @db.VarChar(30)
   name      String   @unique @db.VarChar(50)
   logo      String   @db.Text
@@ -53,79 +53,53 @@ model CarBrand {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  carModels CarModel[]
+  motorcycleModels MotorcycleModel[]
 
-  @@map("car_brands")
+  @@map("motorcycle_brands")
 }
 
-model CarModel {
-  id         String   @id @default(cuid()) @db.VarChar(30)
-  carBrandId String   @map("car_brand_id") @db.VarChar(30)
-  name       String   @db.VarChar(50)
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+model MotorcycleModel {
+  id                String   @id @default(cuid()) @db.VarChar(30)
+  motorcycleBrandId String   @map("motorcycle_brand_id") @db.VarChar(30)
+  name              String   @db.VarChar(50)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
 
-  carBrand      CarBrand       @relation(fields: [carBrandId], references: [id], onDelete: Cascade)
-  carModelYears CarModelYear[]
+  motorcycleBrand      MotorcycleBrand       @relation(fields: [motorcycleBrandId], references: [id], onDelete: Cascade)
+  motorcycleModelYears MotorcycleModelYear[]
 
-  @@unique([name, carBrandId])
-  @@map("car_models")
+  @@unique([name, motorcycleBrandId])
+  @@map("motorcycle_models")
 }
 
-model CarModelYear {
-  id         String   @id @default(cuid()) @db.VarChar(30)
-  carModelId String   @map("car_model_id") @db.VarChar(30)
-  year       Int      @db.Integer
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+model MotorcycleModelYear {
+  id                String   @id @default(cuid()) @db.VarChar(30)
+  motorcycleModelId String   @map("motorcycle_model_id") @db.VarChar(30)
+  year              Int      @db.Integer
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
 
-  carModel           CarModel            @relation(fields: [carModelId], references: [id], onDelete: Cascade)
-  carModelYearColors CarModelYearColor[]
+  motorcycleModel MotorcycleModel  @relation(fields: [motorcycleModelId], references: [id], onDelete: Cascade)
+  userMotorcycles UserMotorcycle[]
 
-  @@unique([year, carModelId])
-  @@map("car_model_years")
+  @@unique([year, motorcycleModelId])
+  @@map("motorcycle_model_years")
 }
 
-model Color {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+model UserMotorcycle {
+  id                    String   @id @default(cuid()) @db.VarChar(30)
+  userId                String   @map("user_id") @db.VarChar(30)
+  motorcycleModelYearId String   @map("motorcycle_model_year_id") @db.VarChar(30)
+  licensePlate          String   @map("license_plate") @db.VarChar(50)
+  motorcycleImages      String[] @map("motorcycle_images")
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
 
-  carModelYearColors CarModelYearColor[]
+  user                User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  motorcycleModelYear MotorcycleModelYear @relation(fields: [motorcycleModelYearId], references: [id], onDelete: Cascade)
+  orders              Order[]
 
-  @@map("colors")
-}
-
-model CarModelYearColor {
-  id             String   @id @default(cuid())
-  carModelYearId String   @map("car_model_year_id") @db.VarChar(30)
-  colorId        String   @map("color_id") @db.VarChar(30)
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
-
-  carModelYear CarModelYear @relation(fields: [carModelYearId], references: [id], onDelete: Cascade)
-  color        Color        @relation(fields: [colorId], references: [id], onDelete: Cascade)
-  userCars     UserCar[]
-
-  @@unique([carModelYearId, colorId])
-  @@map("car_model_year_colors")
-}
-
-model UserCar {
-  id                  String   @id @default(cuid()) @db.VarChar(30)
-  userId              String   @map("user_id") @db.VarChar(30)
-  carModelYearColorId String   @map("car_model_year_color_id") @db.VarChar(30)
-  licensePlate        String   @map("license_plate") @db.VarChar(50)
-  carImages           String[] @map("car_images")
-  createdAt           DateTime @default(now()) @map("created_at")
-  updatedAt           DateTime @updatedAt @map("updated_at")
-
-  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  carModelYearColor CarModelYearColor @relation(fields: [carModelYearColorId], references: [id], onDelete: Cascade)
-  orders            Order[]
-
-  @@map("user_cars")
+  @@map("user_motorcycles")
 }
 
 model Workshop {
@@ -144,7 +118,7 @@ model Workshop {
   @@map("workshops")
 }
 
-model CarService {
+model MotorcycleService {
   id        String   @id @default(cuid()) @db.VarChar(30)
   name      String   @unique @db.VarChar(50)
   price     Decimal  @map("price") @db.Decimal(12, 2)
@@ -153,7 +127,7 @@ model CarService {
 
   orders Order[]
 
-  @@map("car_services")
+  @@map("motorcycle_services")
 }
 
 model PaymentMethod {
@@ -206,24 +180,24 @@ model VirtualAccountConfig {
 }
 
 model Order {
-  id            String      @id @default(cuid()) @db.VarChar(30)
-  userId        String      @map("user_id") @db.VarChar(30)
-  userCarId     String      @map("user_car_id") @db.VarChar(30)
-  workshopId    String      @map("workshop_id") @db.VarChar(30)
-  transactionId String      @map("transaction_id") @db.VarChar(30)
-  workStatus    WorkStatus  @default(QUEUED) @map("work_status")
-  orderStatus   OrderStatus @default(DRAFT) @map("order_status")
-  note          String?     @db.Text
-  subtotalPrice Decimal     @map("subtotal_price") @db.Decimal(12, 2)
-  createdAt     DateTime    @default(now()) @map("created_at")
-  updatedAt     DateTime    @updatedAt @map("updated_at")
+  id               String      @id @default(cuid()) @db.VarChar(30)
+  userId           String      @map("user_id") @db.VarChar(30)
+  userMotorcycleId String      @map("user_motorcycle_id") @db.VarChar(30)
+  workshopId       String      @map("workshop_id") @db.VarChar(30)
+  transactionId    String      @map("transaction_id") @db.VarChar(30)
+  workStatus       WorkStatus  @default(QUEUED) @map("work_status")
+  orderStatus      OrderStatus @default(DRAFT) @map("order_status")
+  note             String?     @db.Text
+  subtotalPrice    Decimal     @map("subtotal_price") @db.Decimal(12, 2)
+  createdAt        DateTime    @default(now()) @map("created_at")
+  updatedAt        DateTime    @updatedAt @map("updated_at")
 
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userCar     UserCar      @relation(fields: [userCarId], references: [id], onDelete: Cascade)
-  workshop    Workshop     @relation(fields: [workshopId], references: [id], onDelete: Cascade)
-  transaction Transaction  @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  carServices CarService[]
-  eTickets    ETicket[]
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userMotorcycle     UserMotorcycle      @relation(fields: [userMotorcycleId], references: [id], onDelete: Cascade)
+  workshop           Workshop            @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+  transaction        Transaction         @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  motorcycleServices MotorcycleService[]
+  eTickets           ETicket[]
 
   @@map("orders")
 }
@@ -317,13 +291,7 @@ model ETicket {
 enum WorkStatus {
   QUEUED
   INSPECTION
-  PUTTY
-  SURFACER
-  APPLICATION_COLOR_BASE
-  APPLICATION_CLEAR_COAT
-  POLISHING
-  FINAL_QC
-  COMPLETED
+  IN_PROGRESS
   CANCELLED
 }
 

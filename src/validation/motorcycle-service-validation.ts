@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const createCarServiceSchema = z.object({
+export const createMotorcycleServiceSchema = z.object({
   body: z
     .object({
       name: z
@@ -16,12 +16,12 @@ export const createCarServiceSchema = z.object({
     .strict(),
 });
 
-export const updateCarServiceSchema = z.object({
-  body: createCarServiceSchema.shape.body.partial(),
+export const updateMotorcycleServiceSchema = z.object({
+  body: createMotorcycleServiceSchema.shape.body.partial(),
 });
 
-export const createManyCarServiceSchema = z.object({
+export const createManyMotorcycleServiceSchema = z.object({
   body: z
-    .array(createCarServiceSchema.shape.body)
-    .min(1, "At least one car service is required"),
+    .array(createMotorcycleServiceSchema.shape.body)
+    .min(1, "At least one motorcycle service is required"),
 });

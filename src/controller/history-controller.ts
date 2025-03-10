@@ -54,7 +54,9 @@ export const getHistories: RequestHandler = async (req, res) => {
             orderStatus: true,
             subtotalPrice: true,
             workshop: { select: { id: true, name: true, address: true } },
-            carServices: { select: { id: true, name: true, price: true } },
+            motorcycleServices: {
+              select: { id: true, name: true, price: true },
+            },
             eTickets: { select: { id: true, ticketNumber: true } },
           },
         },
@@ -99,7 +101,9 @@ export const getHistoryById: RequestHandler = async (req, res) => {
             orderStatus: true,
             subtotalPrice: true,
             workshop: { select: { id: true, name: true, address: true } },
-            carServices: { select: { id: true, name: true, price: true } },
+            motorcycleServices: {
+              select: { id: true, name: true, price: true },
+            },
             eTickets: { select: { id: true, ticketNumber: true } },
           },
         },
@@ -165,7 +169,9 @@ export const getCurrentUserHistories: RequestHandler = async (req, res) => {
             orderStatus: true,
             subtotalPrice: true,
             workshop: { select: { id: true, name: true, address: true } },
-            carServices: { select: { id: true, name: true, price: true } },
+            motorcycleServices: {
+              select: { id: true, name: true, price: true },
+            },
             eTickets: { select: { id: true, ticketNumber: true } },
           },
         },

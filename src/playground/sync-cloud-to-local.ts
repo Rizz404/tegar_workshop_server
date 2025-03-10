@@ -45,14 +45,14 @@
 //   return {
 //     users: await cloudDb.user.findMany(),
 //     userProfiles: await cloudDb.userProfile.findMany(),
-//     carBrands: await cloudDb.carBrand.findMany(),
-//     carModels: await cloudDb.carModel.findMany(),
+//     motorcycleBrands: await cloudDb.motorcycleBrand.findMany(),
+//     motorcycleModels: await cloudDb.motorcycleModel.findMany(),
 //     colors: await cloudDb.color.findMany(),
 //     workshops: await cloudDb.workshop.findMany(),
-//     carServices: await cloudDb.carService.findMany(),
-//     carModelYears: await cloudDb.carModelYear.findMany(),
-//     carModelYearColors: await cloudDb.carModelYearColor.findMany(),
-//     userCars: await cloudDb.userCar.findMany(),
+//     motorcycleServices: await cloudDb.motorcycleService.findMany(),
+//     motorcycleModelYears: await cloudDb.motorcycleModelYear.findMany(),
+//     motorcycleModelYearColors: await cloudDb.motorcycleModelYearColor.findMany(),
+//     userMotorcycles: await cloudDb.userMotorcycle.findMany(),
 //     paymentMethods: await cloudDb.paymentMethod.findMany(),
 //     orders: await cloudDb.order.findMany(),
 //     transactions: await cloudDb.transaction.findMany(),
@@ -69,9 +69,9 @@
 //       skipDuplicates: true,
 //     });
 
-//     console.info("Inserting car brands...");
-//     await localDb.carBrand.createMany({
-//       data: data.carBrands,
+//     console.info("Inserting motorcycle brands...");
+//     await localDb.motorcycleBrand.createMany({
+//       data: data.motorcycleBrands,
 //       skipDuplicates: true,
 //     });
 
@@ -100,34 +100,34 @@
 //     //   skipDuplicates: true,
 //     // });
 
-//     console.info("Inserting car models...");
-//     await localDb.carModel.createMany({
-//       data: data.carModels,
+//     console.info("Inserting motorcycle models...");
+//     await localDb.motorcycleModel.createMany({
+//       data: data.motorcycleModels,
 //       skipDuplicates: true,
 //     });
 
-//     console.info("Inserting car services...");
-//     await localDb.carService.createMany({
-//       data: data.carServices,
+//     console.info("Inserting motorcycle services...");
+//     await localDb.motorcycleService.createMany({
+//       data: data.motorcycleServices,
 //       skipDuplicates: true,
 //     });
 
 //     // Level 3: Tables with multiple foreign key dependencies
-//     console.info("Inserting car model years...");
-//     await localDb.carModelYear.createMany({
-//       data: data.carModelYears,
+//     console.info("Inserting motorcycle model years...");
+//     await localDb.motorcycleModelYear.createMany({
+//       data: data.motorcycleModelYears,
 //       skipDuplicates: true,
 //     });
 
-//     console.info("Inserting car model year colors...");
-//     await localDb.carModelYearColor.createMany({
-//       data: data.carModelYearColors,
+//     console.info("Inserting motorcycle model year colors...");
+//     await localDb.motorcycleModelYearColor.createMany({
+//       data: data.motorcycleModelYearColors,
 //       skipDuplicates: true,
 //     });
 
-//     // console.info("Inserting user cars...");
-//     // await localDb.userCar.createMany({
-//     //   data: data.userCars,
+//     // console.info("Inserting user motorcycles...");
+//     // await localDb.userMotorcycle.createMany({
+//     //   data: data.userMotorcycles,
 //     //   skipDuplicates: true,
 //     // });
 

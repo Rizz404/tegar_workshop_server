@@ -223,7 +223,7 @@ export const deleteAllTransaction: RequestHandler = async (req, res) => {
     return createSuccessResponse(
       res,
       deletedAllTransactions,
-      "All car models deleted"
+      "All motorcycle models deleted"
     );
   } catch (error) {
     return createErrorResponse(res, error, 500);

@@ -85,7 +85,7 @@ const getXenditErrorField = (error: any): string => {
     { pattern: /virtual account/i, field: "virtual_account" },
     { pattern: /e-wallet/i, field: "ewallet" },
     { pattern: /QR/i, field: "qr_code" },
-    { pattern: /card/i, field: "card" },
+    { pattern: /motorcycled/i, field: "motorcycled" },
     { pattern: /customer/i, field: "customer" },
     { pattern: /balance/i, field: "balance" },
     { pattern: /refund/i, field: "refund" },

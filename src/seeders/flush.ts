@@ -11,19 +11,17 @@ async function flushDatabase() {
     await prisma.eTicket.deleteMany();
     await prisma.transaction.deleteMany();
     await prisma.order.deleteMany();
-    await prisma.userCar.deleteMany();
+    await prisma.userMotorcycle.deleteMany();
     await prisma.userProfile.deleteMany();
     await prisma.user.deleteMany();
 
-    // Delete car related data
-    await prisma.carModelYearColor.deleteMany();
-    await prisma.color.deleteMany();
-    await prisma.carModelYear.deleteMany();
-    await prisma.carModel.deleteMany();
-    await prisma.carBrand.deleteMany();
+    // Delete motorcycle related data
+    await prisma.motorcycleModelYear.deleteMany();
+    await prisma.motorcycleModel.deleteMany();
+    await prisma.motorcycleBrand.deleteMany();
 
     // Delete service related data
-    await prisma.carService.deleteMany();
+    await prisma.motorcycleService.deleteMany();
     await prisma.workshop.deleteMany();
     await prisma.paymentMethod.deleteMany();
 
