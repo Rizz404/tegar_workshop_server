@@ -5,7 +5,6 @@ import DailyRotateFile from "winston-daily-rotate-file";
 
 // * Environment check
 const isNetlify = process.env.NETLIFY === "true";
-const isProduction = process.env.NODE_ENV === "production";
 
 // * Transport configuration
 const mainTransports: winston.transport[] = [consoleTransport];
